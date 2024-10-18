@@ -8,6 +8,7 @@
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="https://cdn.staticfile.org/clipboard.js/2.0.4/clipboard.min.js"></script>
 	<style>
     .fakeimg {
         height: 200px;
@@ -68,14 +69,67 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="calc()">计算</button>
-        <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="resetForm()">重置</button>
+        <div class="col-12 col-sm-12">
+          <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="calc()">计算</button>
+          <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="resetForm()">重置</button>
+        </div>
 
 
         <p class="fw-normal" id="result" style="margin-top:20px"></p>
+         <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="copy()">复制</button>
+
+        
     </div>
     <div class="col-1 col-sm-1">
     </div>
+  </div>
+  <div>
+    <table class="table table-bordered" style="margin-top:20px">
+<!--           <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead> -->
+          <tbody>
+            <tr >
+              <td></td>
+              <td class="align-middle">场地</td>
+              <td class="align-middle">羽毛球</td>
+            </tr>
+            <tr>
+              <td>数量</td>
+              <td><label id="tableCourtCount"></label></td>
+              <td><label id="tableBallCount"></label></td>
+            </tr>
+             <tr>
+              <td>小计</td>
+              <td><label id="tableCourtFee"></label></td>
+              <td><label id="tableBallFee"></label></td>
+            </tr>
+             <tr>
+              <td></td>
+              <td>人数</td>
+              <td>费用</td>
+            </tr>
+            <tr>
+              <td>男生</td>
+              <td><label id="tableMaleCount"></label></td>
+              <td><label id="tableMaleFee"></label></td>
+            </tr>
+            <tr>
+              <td>女生</td>
+              <td><label id="tableFemaleCount"></label></td>
+              <td><label id="tableFemaleFee"></label></td>
+            </tr>
+            <tr>
+              <td >合计</td>
+              <td colspan="2"><label id="tableSum"></td>
+            </tr>
+          </tbody>
+        </table>
   </div>
 </div>
 
@@ -86,10 +140,10 @@
     var courtFee = parseInt($("#courtFee").val());
     var ballCount = parseInt($("#ballCount").val());
     var ballTotalFee = parseFloat($("#ballTotalFee").val());
-    var ballFee =ballTotalFee / 12 * ballCount;
+    var ballFee = ballTotalFee / 12 * ballCount;
     var count = parseInt($("#count").val());
     var femaleCount = parseInt($("#femaleCount").val());    
-    var maleCount = 0;
+    var maleCount = count - femaleCount;
 
 
     if (!courtFee){
@@ -124,6 +178,18 @@
       + '<br>男费用： '+ (maleFee + 0.01).toFixed(2)
       + '<br>女费用： '+ (femaleFee + 0.01).toFixed(2)
       );
+
+    $('#tableCourtCount').text(courtFee.toFixed(2));
+    $('#tableBallCount').text(ballCount);
+    $('#tableCourtFee').text(courtFee.toFixed(2));
+    $('#tableBallFee').text(ballFee.toFixed(2));
+
+     $('#tableMaleCount').text(maleCount);
+    $('#tableMaleFee').text(maleFee.toFixed(2));
+    $('#tableFemaleCount').text(femaleCount);
+    $('#tableFemaleFee').text(femaleFee.toFixed(2));
+    $('#tableSum').text(sum);
+
   }
 
 
@@ -137,6 +203,21 @@
       $("#result").html('');
   }
 
+  function copy(){
+    var copyText = $("#result").html();
+     /* 复制内容到文本域 */
+    navigator.clipboard.writeText(copyText);
+    new ClipboardJS('#copyInput', {
+        text: function(trigger) {
+            return $("#result").html();
+        }
+    }).on('success', function(e) {
+       alert("复制成功！！！");
+       e.clearSelection();
+    }).on('error', function(e) {
+        alert('Error!');
+    });
+  }
 </script>
 
 </body>
