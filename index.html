@@ -1,91 +1,102 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>球费费用计算</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
-</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-<script src="https://cdn.staticfile.org/clipboard.js/2.0.4/clipboard.min.js"></script>
-	<style>
-    .fakeimg {
-        height: 200px;
-         background: #aaa;
-    }
-  </style>
-</head>
-<body>
-<div class="jumbotron text-center" style="margin-top:10px; margin-bottom:0">
-  <h1>球费费用计算</h1>
-</div>
-	
-<div class="container">
-  <div class="row">
-    <div class="col-1 col-sm-1">
-    </div>
-    <div class="col-10 col-sm-10">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>球费费用计算</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+			integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+		<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+		</script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+		</script>
+		<script src="https://cdn.staticfile.org/clipboard.js/2.0.4/clipboard.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/html2canvas/1.4.1/html2canvas.js"></script>
+		<style>
+			.fakeimg {
+				height: 200px;
+				background: #aaa;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="jumbotron text-center" style="margin-top:10px; margin-bottom:30px">
+			<h1>球费费用计算</h1>
+		</div>
 
-       <div class="mb-3 row">
-          <label for="lessFee" class="col-4 col-sm-4 col-form-label">女比男少</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="lessFee" value="6">
-          </div>
-        </div>
+		<div class="container">
+			<div class="row">
+				<!-- <div class="alert alert-danger d-flex align-items-center" role="alert" id="errorAlert">
+					<div>
+						<label id="errorText"></label>
+					</div>
+				</div> -->
 
-        <div class="mb-3 row">
-          <label for="courtFee" class="col-4 col-sm-4 col-form-label">场地费</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="courtFee">
-          </div>
-        </div>
+				<div id="liveAlertPlaceholder"></div>
+				<div class="col-1 col-sm-1">
+				</div>
+				<div class="col-10 col-sm-10">
 
-        <div class="mb-3 row">
-          <label for="ballCount" class="col-4 col-sm-4 col-form-label">用球数量</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="ballCount">
-          </div>
-        </div>
+					<div class="mb-3 row">
+						<label for="lessFee" class="col-4 col-sm-4 col-form-label">女比男少</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="lessFee" value="6">
+						</div>
+					</div>
 
-          <div class="mb-3 row">
-          <label for="ballTotalFee" class="col-4 col-sm-4 col-form-label">单桶球总价</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="ballTotalFee">
-          </div>
-        </div>
+					<div class="mb-3 row">
+						<label for="courtFee" class="col-4 col-sm-4 col-form-label">场地费</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="courtFee">
+						</div>
+					</div>
 
-         <div class="mb-3 row">
-          <label for="count" class="col-4 col-sm-4 col-form-label">总人数</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="count">
-          </div>
-        </div>
+					<div class="mb-3 row">
+						<label for="ballCount" class="col-4 col-sm-4 col-form-label">用球数量</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="ballCount">
+						</div>
+					</div>
 
-        <div class="mb-3 row">
-          <label for="femaleCount" class="col-4 col-sm-4 col-form-label">女生人数</label>
-          <div class="col-8 col-sm-8">
-            <input type="number" class="form-control" id="femaleCount">
-          </div>
-        </div>
+					<div class="mb-3 row">
+						<label for="ballTotalFee" class="col-4 col-sm-4 col-form-label">单桶球总价</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="ballTotalFee">
+						</div>
+					</div>
 
-        <div class="col-12 col-sm-12">
-          <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="calc()">计算</button>
-          <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="resetForm()">重置</button>
-        </div>
+					<div class="mb-3 row">
+						<label for="count" class="col-4 col-sm-4 col-form-label">总人数</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="count">
+						</div>
+					</div>
+
+					<div class="mb-3 row">
+						<label for="femaleCount" class="col-4 col-sm-4 col-form-label">女生人数</label>
+						<div class="col-8 col-sm-8">
+							<input type="number" class="form-control" id="femaleCount">
+						</div>
+					</div>
+
+					<div class="col-12 col-sm-12">
+						<button type="button" class="btn btn-primary col-4 col-sm-4" onclick="calc()">计算</button>
+						<button type="button" class="btn btn-primary col-4 col-sm-4" style="margin-left: 40px"
+							onclick="resetForm()">重置</button>
+					</div>
 
 
-        <p class="fw-normal" id="result" style="margin-top:20px"></p>
-         <button type="button" class="btn btn-primary col-4 col-sm-4" onclick="copy()">复制</button>
-
-        
-    </div>
-    <div class="col-1 col-sm-1">
-    </div>
-  </div>
-  <div>
-    <table class="table table-bordered" style="margin-top:20px">
-<!--           <thead>
+					<p class="fw-normal" id="result" style="margin-top:20px"></p>
+					<button type="button" id="copyBtn" data-clipboard-target="#result"
+						class="btn btn-primary col-4 col-sm-4">复制</button>
+				</div>
+				<div class="col-1 col-sm-1">
+				</div>
+			</div>
+			<div>
+				<table class="table table-bordered" style="margin-top:20px" id="calcTab">
+					<!--           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">First</th>
@@ -93,132 +104,244 @@
               <th scope="col">Handle</th>
             </tr>
           </thead> -->
-          <tbody>
-            <tr >
-              <td></td>
-              <td class="align-middle">场地</td>
-              <td class="align-middle">羽毛球</td>
-            </tr>
-            <tr>
-              <td>数量</td>
-              <td><label id="tableCourtCount"></label></td>
-              <td><label id="tableBallCount"></label></td>
-            </tr>
-             <tr>
-              <td>小计</td>
-              <td><label id="tableCourtFee"></label></td>
-              <td><label id="tableBallFee"></label></td>
-            </tr>
-             <tr>
-              <td></td>
-              <td>人数</td>
-              <td>费用</td>
-            </tr>
-            <tr>
-              <td>男生</td>
-              <td><label id="tableMaleCount"></label></td>
-              <td><label id="tableMaleFee"></label></td>
-            </tr>
-            <tr>
-              <td>女生</td>
-              <td><label id="tableFemaleCount"></label></td>
-              <td><label id="tableFemaleFee"></label></td>
-            </tr>
-            <tr>
-              <td >合计</td>
-              <td colspan="2"><label id="tableSum"></td>
-            </tr>
-          </tbody>
-        </table>
-  </div>
-</div>
+					<tbody>
+						<tr>
+							<td></td>
+							<td class="align-middle">场地</td>
+							<td class="align-middle">羽毛球</td>
+						</tr>
+						<tr>
+							<td>数量</td>
+							<td><label id="tableCourtCount"></label></td>
+							<td><label id="tableBallCount"></label></td>
+						</tr>
+						<tr>
+							<td>小计</td>
+							<td><label id="tableCourtFee"></label></td>
+							<td><label id="tableBallFee"></label></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>男生</td>
+							<td>女生</td>
+						</tr>
+						<tr>
+							<td>人数</td>
+							<td><label id="tableMaleCount"></label></td>
+							<td><label id="tableFemaleCount"></label></td>
+						</tr>
+						<tr>
+							<td>费用</td>
+							<td><label id="tableMaleFee"></label></td>
+							<td><label id="tableFemaleFee"></label></td>
+						</tr>
+						<tr>
+							<td>合计</td>
+							<td colspan="2"><label id="tableSum"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
-<script type="text/javascript">
-  function calc() {
-    console.log($("#lessFee").val());
-    var lessFee = parseInt($("#lessFee").val());
-    var courtFee = parseInt($("#courtFee").val());
-    var ballCount = parseInt($("#ballCount").val());
-    var ballTotalFee = parseFloat($("#ballTotalFee").val());
-    var ballFee = ballTotalFee / 12 * ballCount;
-    var count = parseInt($("#count").val());
-    var femaleCount = parseInt($("#femaleCount").val());    
-    var maleCount = count - femaleCount;
+			<div class="toast-container position-fixed bottom-0 end-0 p-3">
+				<div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+					<div class="toast-header">
+						<strong class="me-auto">提示信息</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body">
+						<label id="copyText"></label>
+					</div>
+				</div>
+			</div>
+		</div>
 
-
-    if (!courtFee){
-      console.log("场地费没值");
-      return;
-    }
-    if (!ballFee){
-      console.log("球费没值");
-      return;
-    }
-    if (!count){
-      console.log("总人数没值");
-      return;
-    }
-    if (!femaleCount || femaleCount > count){
-      console.log("女生人数没值或者错误");
-      return;
-    }
-
-
-    var sum = courtFee + ballFee;
-    var maleFee = (sum + femaleCount * lessFee) / count;
-    var femaleFee = maleFee - lessFee;
-
-    console.log('男生费用：' + maleFee);
-    console.log('女生费用：' + femaleFee);
-
-    $("#result").html(
-      '场地费用： '+ courtFee
-      + '<br>球费用： '+ ballFee.toFixed(2)
-      + '<br>总费用： '+ sum.toFixed(2)
-      + '<br>男费用： '+ (maleFee + 0.01).toFixed(2)
-      + '<br>女费用： '+ (femaleFee + 0.01).toFixed(2)
-      );
-
-    $('#tableCourtCount').text(courtFee.toFixed(2));
-    $('#tableBallCount').text(ballCount);
-    $('#tableCourtFee').text(courtFee.toFixed(2));
-    $('#tableBallFee').text(ballFee.toFixed(2));
-
-     $('#tableMaleCount').text(maleCount);
-    $('#tableMaleFee').text(maleFee.toFixed(2));
-    $('#tableFemaleCount').text(femaleCount);
-    $('#tableFemaleFee').text(femaleFee.toFixed(2));
-    $('#tableSum').text(sum);
-
-  }
+		<script type="text/javascript">
+			$(function() {
+				new ClipboardJS('#copyBtn', {
+					text: function(trigger) {
+						return document.getElementById("result").value;
+					}
+				}).on('success', function(e) {
+					$('#copyText').text('复制成功！！！');
+					const toast = new bootstrap.Toast(toastLiveExample)
+					toast.show();
+					e.clearSelection();
+				}).on('error', function(e) {
+					$('#copyText').text('复制失败！！！');
+					const toast = new bootstrap.Toast(toastLiveExample)
+					toast.show();
+				});
 
 
-  function resetForm(){
-      $("#lessFee").val(6);
-      $("#courtFee").val('');
-      $("#ballCount").val('');
-      $("#ballTotalFee").val('');
-      $("#count").val('');
-      $("#femaleCount").val('');    
-      $("#result").html('');
-  }
+				$("#copyBtn").click(function() {
+					html2canvas(document.querySelector("#calcTab")).then(function(canvas) {
+						var imgUri = canvas.toDataURL("image/png").replace("image/png",
+							"image/octet-stream"); // 获取生成的图片的url
+						window.location.href = imgUri; // 下载图片
+					});
+					// var $table = document.getElementById('calcTab').clone(); // $str 是table的dom节点。
 
-  function copy(){
-    var copyText = $("#result").html();
-     /* 复制内容到文本域 */
-    navigator.clipboard.writeText(copyText);
-    new ClipboardJS('#copyInput', {
-        text: function(trigger) {
-            return $("#result").html();
-        }
-    }).on('success', function(e) {
-       alert("复制成功！！！");
-       e.clearSelection();
-    }).on('error', function(e) {
-        alert('Error!');
-    });
-  }
-</script>
+					// var $tableContent = $('.tableContent');
+					// $tableContent.empty().append($table);
+					// var width = $j.css('width').split('px')[0],
+					// 	height = $j.css('height').split('px')[0],
+					// 	canvas = document.createElement('canvas'),
+					// 	content = '',
+					// 	rect = $j.get(0).getBoundingClientRect();
 
-</body>
+					// canvas.width = width; //canvas宽度
+					// canvas.height = height * scale; //canvas高度
+					// content = canvas.getContext('2d');
+					// content.translate(-rect.left, -rect.top);
+
+					// canvasData = {
+					// 	useCORS: true,
+					// 	dpi: window.devicePixelRatio * 2,
+					// 	canvas: canvas,
+					// 	width: width,
+					// 	height: height,
+					// 	letterRendering: true
+					// };
+
+					// html2Canvas($j, canvasData).then(function(canvas) {
+					// 	var context1 = canvas.getContext('2d');
+					// 	var dataURL = context1.canvas.toDataURL('image/png');
+					// })
+				});
+			})
+
+			const toastTrigger = document.getElementById('liveToastBtn')
+			const toastLiveExample = document.getElementById('liveToast')
+			const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+
+			const alert = (message, type) => {
+				const wrapper = document.createElement('div')
+				wrapper.innerHTML = [
+					`<div class="alert alert-${type} alert-dismissible fade show" role="alert">`,
+					`   <div>${message}</div>`,
+					'   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+					'</div>'
+				].join('')
+
+				alertPlaceholder.append(wrapper)
+
+				setTimeout(function() {
+					wrapper.innerHTML = ''
+				}, 1500); // 延迟2秒执行
+			}
+
+			function calc() {
+				console.log($("#lessFee").val());
+				var lessFee = parseInt($("#lessFee").val());
+				var courtFee = parseInt($("#courtFee").val());
+				if (!courtFee) {
+					courtFee = 0;
+				}
+				var ballCount = parseInt($("#ballCount").val());
+				var ballTotalFee = parseFloat($("#ballTotalFee").val());
+				if (!ballCount) {
+					ballCount = 0;
+				}
+				var ballFee = 0;
+				if (ballCount != 0) {
+					ballFee = ballTotalFee / 12 * ballCount;
+					if (!ballTotalFee) {
+						alert('单桶球总价没值', 'danger')
+						return;
+					}
+				}
+				var count = parseInt($("#count").val());
+				var femaleCount = parseInt($("#femaleCount").val());
+
+				if (!count) {
+					alert('总人数没值', 'danger')
+					return;
+				}
+				if (!femaleCount) {
+					femaleCount = 0;
+				}
+
+				if (femaleCount > count) {
+					alert('女生人数填写错误', 'danger')
+					return;
+				}
+
+				var maleCount = count - femaleCount;
+				var sum = courtFee + ballFee;
+				var maleFee = (sum + femaleCount * lessFee) / count + 0.01;
+				var femaleFee = maleFee - lessFee;
+				if (femaleFee < 0) {
+					femaleFee = 0;
+					maleFee = sum / maleCount;
+				}
+
+				console.log('男生费用：' + maleFee);
+				console.log('女生费用：' + femaleFee);
+				var finalCourtFee = courtFee.toFixed(2)
+				var finalSum = sum.toFixed(2)
+				var finalBallFee = ballFee.toFixed(2)
+				var finalMaleFee = maleFee.toFixed(2);
+				var finalFemaleFee = femaleFee.toFixed(2)
+
+
+				var html = '';
+				if (!courtFee && courtFee > 0) {
+					html += '场地费用： ' + finalCourtFee;
+				}
+
+				if (!ballFee && ballFee > 0) {
+					html += '<br>球费用： ' + finalBallFee;
+				}
+				html += '<br>总费用： ' + finalSum;
+				if (maleCount > 0) {
+					html += '<br>男费用： ' + finalMaleFee
+				}
+
+				if (femaleCount > 0) {
+					html += '<br>女费用： ' + finalFemaleFee
+				}
+
+				$("#result").html(html);
+
+				$('#tableCourtCount').text('X');
+				$('#tableBallCount').text(ballCount);
+				$('#tableCourtFee').text(finalCourtFee);
+				$('#tableBallFee').text(finalBallFee);
+
+				$('#tableMaleCount').text(maleCount);
+				$('#tableMaleFee').text(0);
+				if (maleCount > 0) {
+					$('#tableMaleFee').text(finalMaleFee);
+				}
+				$('#tableFemaleCount').text(femaleCount);
+				$('#tableFemaleFee').text(0);
+				if (femaleCount > 0) {
+					$('#tableFemaleFee').text(finalFemaleFee);
+				}
+				$('#tableSum').text(sum);
+			}
+
+			function resetForm() {
+				$("#lessFee").val(6);
+				$("#courtFee").val('');
+				$("#ballCount").val('');
+				$("#ballTotalFee").val('');
+				$("#count").val('');
+				$("#femaleCount").val('');
+				$("#result").html('');
+
+				$('#tableCourtCount').text('');
+				$('#tableBallCount').text('');
+				$('#tableCourtFee').text('');
+				$('#tableBallFee').text('');
+
+				$('#tableMaleCount').text('');
+				$('#tableMaleFee').text('');
+				$('#tableFemaleCount').text('');
+				$('#tableFemaleFee').text('');
+				$('#tableSum').text('');
+			}
+		</script>
+	</body>
 </html>
