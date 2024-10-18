@@ -285,12 +285,9 @@
 				var finalFemaleFee = femaleFee.toFixed(2)
 
 
-				var html = '';
-				if (!courtFee && courtFee > 0) {
-					html += '场地费用： ' + finalCourtFee;
-				}
+				var html = '场地费用： ' + finalCourtFee;
 
-				if (!ballFee && ballFee > 0) {
+				if (ballFee > 0) {
 					html += '<br>球费用： ' + finalBallFee;
 				}
 				html += '<br>总费用： ' + finalSum;
